@@ -1,0 +1,13 @@
+@import 'container.scss';
+
+.container{
+    display: flex;
+    
+}
+.box{
+    width: 75px;
+    height: 75px;
+    margin: 15px;
+    background-color: coral;
+    box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.541);
+}
