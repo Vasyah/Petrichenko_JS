@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function hideTabs(){
         tabsContent.forEach(tab => {
-            tab.style.display = 'none';
+            tab.classList.add('hide');
         });
         tabs.forEach(tab => {
             tab.classList.remove('tabheader__item_active');
@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     function showTab(counter = 0){
-        tabsContent[counter].style.display = 'block';
+        tabsContent[counter].classList.add('show-b');
+        tabsContent[counter].classList.remove('hide');
+        tabs[counter].classList.add('tabheader__item_active');
     }
     hideTabs();
     showTab();
@@ -27,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function(){
         if(isTab){
             tabs.forEach((item, i) => {
                 if(item === target ){
-                    item.classList.add('tabheader__item_active');
+                    hideTabs();
                     showTab(i);
                 }
             })

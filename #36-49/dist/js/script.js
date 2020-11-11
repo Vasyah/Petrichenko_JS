@@ -81,10 +81,28 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/main.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./src/js/date.js":
+/*!************************!*\
+  !*** ./src/js/date.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+let currDate = new Date();
+console.log(currDate.getDate());
+console.log(currDate.getMonth());
+console.log(currDate.getMinutes());
+console.log(Date.parse(currDate));
+
+/***/ }),
 
 /***/ "./src/js/main.js":
 /*!************************!*\
@@ -103,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function hideTabs() {
     tabsContent.forEach(tab => {
-      tab.style.display = 'none';
+      tab.classList.add('hide');
     });
     tabs.forEach(tab => {
       tab.classList.remove('tabheader__item_active');
@@ -111,7 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function showTab(counter = 0) {
-    tabsContent[counter].style.display = 'block';
+    tabsContent[counter].classList.add('show-b');
+    tabsContent[counter].classList.remove('hide');
+    tabs[counter].classList.add('tabheader__item_active');
   }
 
   hideTabs();
@@ -123,13 +143,93 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isTab) {
       tabs.forEach((item, i) => {
         if (item === target) {
-          item.classList.add('tabheader__item_active');
+          hideTabs();
           showTab(i);
         }
       });
     }
   });
 });
+
+/***/ }),
+
+/***/ "./src/js/timer.js":
+/*!*************************!*\
+  !*** ./src/js/timer.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const discountEndTime = '2020-11-11';
+
+  function getTimeRamaining(endTime) {
+    const t = Date.parse(endTime) - Date.parse(new Date()),
+          days = Math.floor(t / (1000 * 60 * 60 * 24)),
+          hours = Math.floor(t / (1000 * 60 * 60) % 24),
+          minutes = Math.floor(t / (1000 * 60) % 60),
+          seconds = Math.floor(t / 1000 % 60);
+    return {
+      'total': t,
+      'days': days,
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds
+    };
+  }
+
+  function getZero(num) {
+    if (num >= 0 && num < 10) {
+      return `0${num}`;
+    } else {
+      return num;
+    }
+  }
+
+  function setClock(selector, endtime) {
+    const timer = document.querySelector(selector);
+    const days = timer.querySelector('#days');
+    const hours = timer.querySelector('#hours');
+    const minutes = timer.querySelector('#minutes');
+    const seconds = timer.querySelector('#seconds');
+    const timeInterval = setInterval(updateClock, 1000); // initiation
+
+    updateClock();
+
+    function updateClock() {
+      const t = getTimeRamaining(endtime);
+      days.innerHTML = getZero(t.days);
+      hours.innerHTML = getZero(t.hours);
+      minutes.innerHTML = getZero(t.minutes);
+      seconds.innerHTML = getZero(t.seconds);
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+
+    ;
+  }
+
+  setClock('.timer', discountEndTime);
+});
+
+/***/ }),
+
+/***/ 0:
+/*!*****************************************************************!*\
+  !*** multi ./src/js/date.js ./src/js/main.js ./src/js/timer.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! /home/vasyah/Repository/JS_Lessons/Petrichenko/JS_learning/newCourseByPetrichenko/#36-49/src/js/date.js */"./src/js/date.js");
+__webpack_require__(/*! /home/vasyah/Repository/JS_Lessons/Petrichenko/JS_learning/newCourseByPetrichenko/#36-49/src/js/main.js */"./src/js/main.js");
+module.exports = __webpack_require__(/*! /home/vasyah/Repository/JS_Lessons/Petrichenko/JS_learning/newCourseByPetrichenko/#36-49/src/js/timer.js */"./src/js/timer.js");
+
 
 /***/ })
 

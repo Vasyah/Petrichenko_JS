@@ -15,7 +15,7 @@ gulp.task("copy-html", () => {
 });
 
 gulp.task("build-js", () => {
-    return gulp.src("./src/js/main.js")
+    return gulp.src("./src/js/**.*")
                 .pipe(webpack({
                     mode: 'development',
                     output: {
@@ -86,11 +86,10 @@ gulp.task("prod", () => {
     gulp.src("./src/icons/**/*.*")
         .pipe(gulp.dest(dist + "/icons"));
 
-    gulp.src("./src/js/main.js")
+    gulp.src("./src/js/*.*")
         .pipe(webpack({
             mode: 'production',
             output: {
-                filename: 'script.js'
             },
             module: {
                 rules: [
